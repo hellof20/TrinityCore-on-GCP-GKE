@@ -18,7 +18,7 @@ spec:
         app: sdk
     spec:
       containers:
-      - image: hellof20/trinitycore-regisiter
+      - image: hellof20/wow-sdk:v1
         name: trinitycore-regisiter
         command: ["python","sdk.py"]
         ports:
@@ -30,6 +30,22 @@ spec:
           limits:
             memory: "100Mi"
             cpu: "100m"
+        env:
+          - name: host
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: host
+          - name: user
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: user
+          - name: password
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: password            
 ---
 apiVersion: v1
 kind: Service

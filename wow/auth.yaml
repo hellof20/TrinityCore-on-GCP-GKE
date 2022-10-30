@@ -6,5 +6,5 @@ metadata:
   - stable.example.com/finalizer  
 spec:
   port: 3724
-  image: asia.gcr.io/gcp-wow/auth
+  image: hellof20/auth
   replicas: 1

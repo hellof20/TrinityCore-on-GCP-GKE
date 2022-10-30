@@ -1,10 +1,10 @@
 apiVersion: "stable.example.com/v1"
 kind: Realm
 metadata:
-  name: realm-server-3
+  name: realm-server
   finalizers:
   - stable.example.com/finalizer  
 spec:
-  id: 3
-  image: asia-east2-docker.pkg.dev/gcp-wow/wow-repo/realm
-  name: 麦迪文2
+  id: 2
+  image: hellof20/realm
+  name: 麦迪文

@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
   - name: wow-operator
-    image: asia.gcr.io/gcp-wow/wow-operator:v1
+    image: hellof20/wow-operator:v1
     imagePullPolicy: Always
     env:
       - name: host
@@ -23,5 +23,5 @@ spec:
         valueFrom:
           configMapKeyRef:
             name: mysql-config
-            key: password               
+            key: password
   serviceAccountName: wow-acc
