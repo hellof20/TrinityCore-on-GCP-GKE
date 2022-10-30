@@ -3,13 +3,17 @@
 **WoW-on-gke** help you to deploy World of Warcraft 3.3.5 (TrinityCore) backend service to Google Cloud GKE. To simplify deployment complexity, the wow operator is used to complete the auth server and world server deployment.
 
 ## Before you begin
-- You have two options to run World of Warcraft client
+- You have two options to run World of Warcraft game client
 1. PC computer with Windows OS.
-2. VM from Google CLoud with GPU and use Parsec to streaming.
+2. VM from Google CLoud with GPU and use Parsec to streaming
+- You have installed gcloud and kubectl command tool
+- You have necessary permission to create GKE cluster
+- You have necessary permission to create role and rolebinding in your GKE cluster.
 
 ## Prepare GKE Cluster
-- create GKE autopilot Cluster
+- create GKE Cluster
 ```
+
 ```
 - validate the Cluster
 ```
