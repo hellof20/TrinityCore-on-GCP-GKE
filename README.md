@@ -17,33 +17,29 @@ kubectl get nodes
 ```
 
 ## Deploy MySQL on GKE（Optional）
-If you have MySQL already, you can skip this step。
+If you already have MySQL, you can skip this step.
 - create MySQL
 ```
+kubectl apply -f mysql/mysql.yaml
 ```
-- get MySQL ip, user, password
-```
-```
-
-## Deploy wow operator
 - create K8S configmap from your MySQL parameters
 ```
-kubectl create configmap mysql-config --from-literal=host="mysql_ip_address" --from-literal=user="mysql_user" --from-literal=password="mysql_password"
+kubectl create configmap mysql-config --from-literal=host="mysql" --from-literal=user="root" --from-literal=password="password"
 ```
-replace mysql_ip_address, mysql_user and mysql_password
+Notice: if you don't create mysql use previous step, then you need to replace values of host, user and password.
 
-- deploy operator
-create wow crd
+
+## Deploy wow operator
+- create wow crd
 ```
 kubectl apply -f wow-operator/auth-crd.yaml
 kubectl apply -f wow-operator/realm-crd.yaml
 ```
-create rbac
+- create rbac
 ```
 kubectl apply -f wow-operator/wow-operator-rbac.yaml
 ```
-
-create operator pod
+- create operator pod
 ```
 kubectl apply -f wow-operator/wow-operator-pod.yaml
 ```
@@ -55,18 +51,18 @@ sdk server is used to register user account.
 ```
 kubectl apply -f wow/sdk.yaml
 ```
-- deploy auth server
-```
-kubectl apply -f wow/auth.yaml
-```
 - deploy realm server
 ```
 kubectl apply -f wow/realm.yaml
 ```
+- deploy auth server
+```
+kubectl apply -f wow/auth.yaml
+```
 
 - check auth server and realm status are health
 
-At begining, you will see auth and realm status is 'creating', wait some minutes until auth and realm status are ok.
+At begining, you will see auth and realm status is 'creating', wait some minutes until auth and realm status are 'ok'.
 ```
 kubectl get auth
 kubectl get realm
@@ -74,13 +70,15 @@ kubectl get realm
 
 - get sdk server external ip address
 ```
-kubectl get svc -l 
+kubectl get svc -l "app=sdk"
 ```
+EXTERNAL-IP column is the sdk external ip address.
 
 - get auth server external ip address
 ```
 kubectl get auth
 ```
+EXTERNAL-IP column is the auth server external ip address.
 
 ## Register user account.
 - open http://sdk_server_ip_address in your browser
