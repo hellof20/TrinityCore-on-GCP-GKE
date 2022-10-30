@@ -16,13 +16,17 @@
 kubectl get nodes
 ```
 
-## Deploy MySQL on GKE
+## Deploy MySQL on GKE（Optional）
+If you have MySQL already, you can skip this step。
 - create MySQL
+```
+```
+- get MySQL ip, user, password
 ```
 ```
 
 ## Deploy wow operator
-- create K8S configmap from MySQL parameters
+- create K8S configmap from your MySQL parameters
 ```
 kubectl create configmap mysql-config --from-literal=host="mysql_ip_address" --from-literal=user="mysql_user" --from-literal=password="mysql_password"
 ```
