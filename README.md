@@ -98,4 +98,11 @@ kubectl get auth
 ## Play your World of Warcraft
 
 
+## Add a new realm server
+- copy wow/realm.yaml to a new file
+- modiy metadata.name, id, name. The id cannot be the same as the existing id
+- deploy a new realm server with kubectl
+
+## Clean
+
 
