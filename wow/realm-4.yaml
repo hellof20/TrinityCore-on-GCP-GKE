@@ -1,0 +1,10 @@
+apiVersion: "stable.example.com/v1"
+kind: Realm
+metadata:
+  name: realm-server-4
+  finalizers:
+  - stable.example.com/finalizer  
+spec:
+  id: 4
+  image: asia-east2-docker.pkg.dev/gcp-wow/wow-repo/realm:10292245
+  name: 巨龙之吼

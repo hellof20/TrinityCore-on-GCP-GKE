@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: realm-${id}
+  name: realm-${id}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: realm-${id}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: realm-${id}
+        game: wow
+    spec:
+      containers:
+      - image: ${image}
+        imagePullPolicy: Always
+        name: realm
+        command: ["worldserver"]
+        ports:
+        - containerPort: 8085
+        resources:
+          requests:
+            memory: "2048Mi"
+            cpu: "1"
+          limits:
+            memory: "2048Mi"
+            cpu: "2"
+        volumeMounts:
+        - name: config
+          mountPath: /etc/worldserver.conf
+          subPath: realm-${id}.conf
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: realm-${id}-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: realm-${id}
+  name: realm-${id}
+spec:
+  ports:
+  - port: 8085
+    protocol: TCP
+    targetPort: 8085
+  selector:
+    app: realm-${id}
+  type: LoadBalancer

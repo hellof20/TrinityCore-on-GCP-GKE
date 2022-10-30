@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: auth
+  name: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: auth
+    spec:
+      containers:
+      - image: ${image}
+        imagePullPolicy: IfNotPresent
+        name: auth
+        command: ["authserver"]
+        ports:
+        - containerPort: ${port}
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "256m"
+          limits:
+            memory: "256Mi"
+            cpu: "256m"
+        volumeMounts:
+        - name: config
+          mountPath: /etc/authserver.conf
+          subPath: auth.conf
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: auth-configmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: auth
+  name: auth
+spec:
+  ports:
+  - port: 3724
+    protocol: TCP
+    targetPort: 3724
+  selector:
+    app: auth
+  type: LoadBalancer
+status:
+  loadBalancer: {}

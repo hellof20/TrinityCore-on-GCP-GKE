@@ -1,0 +1,10 @@
+apiVersion: "stable.example.com/v1"
+kind: Auth
+metadata:
+  name: auth-server
+  finalizers:
+  - stable.example.com/finalizer  
+spec:
+  port: 3724
+  image: asia.gcr.io/gcp-wow/auth
+  replicas: 1
