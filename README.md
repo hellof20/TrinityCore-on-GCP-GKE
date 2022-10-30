@@ -1,6 +1,6 @@
 # WoW-on-gke
 
-**WoW-on-gke** help you to deploy World of Warcraft 3.3.5 (TrinityCore) backend service to Google Cloud GKE. To simplify deployment complexity, the wow operator is used to complete the entire deployment
+**WoW-on-gke** help you to deploy World of Warcraft 3.3.5 (TrinityCore) backend service to Google Cloud GKE. To simplify deployment complexity, the wow operator is used to complete the auth server and world server deployment.
 
 ## Before you begin
 - You have two options to run World of Warcraft client
