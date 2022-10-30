@@ -4,11 +4,11 @@
 
 ## Before you begin
 - You have two options to run World of Warcraft game client
-1. PC computer with Windows OS.
-2. VM from Google CLoud with GPU and use Parsec to streaming
+  1. PC computer with Windows OS.
+  2. VM from Google CLoud with GPU and use Parsec to streaming
 - You have installed gcloud and kubectl command tool
 - You have necessary permission to create GKE cluster
-- You have necessary permission to create role and rolebinding in your GKE cluster.
+- You have necessary permission to manage role and rolebinding in your GKE cluster.
 
 ## Prepare GKE Cluster
 - create GKE Cluster
@@ -106,5 +106,12 @@ EXTERNAL-IP column is the auth server external ip address.
 - deploy a new realm server with kubectl
 
 ## Clean
+- delete all resource
+```
 
+```
+- delete GKE Cluster
+```
+
+```
 
