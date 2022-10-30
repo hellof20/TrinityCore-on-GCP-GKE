@@ -30,7 +30,7 @@ Notice: if you don't create mysql use previous step, then you need to replace va
 
 
 ## Deploy wow operator
-- create wow crd
+- create auth server and world server crd
 ```
 kubectl apply -f wow-operator/auth-crd.yaml
 kubectl apply -f wow-operator/realm-crd.yaml
