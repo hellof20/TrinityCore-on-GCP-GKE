@@ -81,6 +81,9 @@ kubectl apply -f wow/auth.yaml
 
 - check auth server and realm status are health
 
+![image](https://user-images.githubusercontent.com/8756642/199422297-1fe98623-bc53-4269-8c5d-e75352e6a76c.png)
+
+
 At begining, you will see auth and realm status is 'creating', wait some minutes until auth and realm status are 'ok'.
 ```
 kubectl get auth
