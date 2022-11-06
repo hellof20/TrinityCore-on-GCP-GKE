@@ -35,32 +35,43 @@ gcloud container clusters create wow \
 kubectl get nodes
 ```
 
-## Deploy MySQL on GKE（Optional）
-If you already have MySQL, you can skip this step.
-- create MySQL
+## Prepare MySQL for WoW
+- create wow namespace
 ```
-kubectl apply -f mysql/mysql.yaml
+kubectl create namespace wow
+```
+
+- create MySQL（Optional）
+
+If you already have MySQL, you can skip this step. 
+```
+kubectl -n wow apply -f mysql/mysql.yaml
 ```
 - create K8S configmap from your MySQL parameters
 ```
-kubectl create configmap mysql-config --from-literal=host="mysql" --from-literal=user="root" --from-literal=password="password"
+kubectl -n wow create configmap mysql-config --from-literal=host="mysql" --from-literal=user="root" --from-literal=password="password"
 ```
 Notice: if you don't create mysql use previous step, then you need to replace values of host, user and password.
 
 
 ## Deploy WoW operator
-- create auth server and world server crd
+- create operator rbac and pod
 ```
-kubectl apply -f wow-operator/auth-crd.yaml
-kubectl apply -f wow-operator/realm-crd.yaml
+kubectl -n wow apply -f wow-operator/wow-operator.yaml
 ```
-- create rbac
+
+## Deploy WoW CRD
+- create auth server CRD
 ```
-kubectl apply -f wow-operator/wow-operator-rbac.yaml
+kubectl apply -f wow/crd/auth-crd.yaml
 ```
-- create operator pod
+- create world server CRD
 ```
-kubectl apply -f wow-operator/wow-operator-pod.yaml
+kubectl apply -f wow/crd/realm-crd.yaml
+```
+- create sdk CRD
+```
+kubectl apply -f wow/crd/sdk-crd.yaml
 ```
 
 ## Deploy backend service
