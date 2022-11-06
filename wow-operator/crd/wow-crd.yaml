@@ -1,0 +1,75 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: wows.stable.example.com
+spec:
+  group: stable.example.com
+  scope: Namespaced
+  names:
+    plural: wows
+    singular: wow
+    kind: WOW
+    shortNames:
+    - wow
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              sdk_port:
+                type: integer
+              sdk_image:
+                type: string
+              sdk_replicas:
+                type: integer
+              auth_image:
+                type: string
+              auth_replicas:
+                type: integer
+              realm_id:
+                type: integer
+              realm_image:
+                type: string
+              realm_name:
+                type: string
+              mysql_host:
+                type: string
+              mysql_user:
+                type: string
+              mysql_password:
+                type: string
+              create_mysql:
+                type: string
+          status:
+            type: object
+            properties:
+              ready:
+                type: string
+              sdk_external_ip:
+                type: string
+              auth_external_ip:
+                type: string
+    subresources:
+      status: {}
+    additionalPrinterColumns:
+    - name: SDK_PORT
+      type: integer
+      jsonPath: .spec.sdk_port
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+    - name: Ready
+      type: string
+      jsonPath: .status.ready
+    - name: SDK_EXTERNAL_IP
+      type: string
+      jsonPath: .status.sdk_external_ip
+    - name: AUTH_EXTERNAL_IP
+      type: string
+      jsonPath: .status.auth_external_ip          

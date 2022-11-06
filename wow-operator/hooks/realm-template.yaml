@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: realm-${id}
-  name: realm-${id}
+    app: realm-${realm_id}
+  name: realm-${realm_id}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: realm-${id}
+      app: realm-${realm_id}
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: realm-${id}
+        app: realm-${realm_id}
         game: wow
     spec:
       containers:
-      - image: ${image}
+      - image: ${realm_image}
         imagePullPolicy: Always
         name: realm
         command: ["worldserver"]
@@ -35,25 +35,25 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/worldserver.conf
-          subPath: realm-${id}.conf
+          subPath: realm-${realm_id}.conf
           readOnly: true
       volumes:
       - name: config
         configMap:
-          name: realm-${id}-configmap
+          name: realm-${realm_id}-configmap
 ---
 apiVersion: v1
 kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: realm-${id}
-  name: realm-${id}
+    app: realm-${realm_id}
+  name: realm-${realm_id}
 spec:
   ports:
   - port: 8085
     protocol: TCP
     targetPort: 8085
   selector:
-    app: realm-${id}
+    app: realm-${realm_id}
   type: LoadBalancer

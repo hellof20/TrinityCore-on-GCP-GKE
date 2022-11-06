@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sdk
+  name: sdk
+spec:
+  replicas: ${sdk_replicas}
+  selector:
+    matchLabels:
+      app: sdk
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sdk
+    spec:
+      containers:
+      - image: ${sdk_image}
+        name: sdk
+        command: ["python","sdk.py"]
+        ports:
+        - containerPort: ${sdk_port}
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "100Mi"
+            cpu: "100m"
+        env:
+          - name: host
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: host
+          - name: user
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: user
+          - name: password
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: password            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdk
+  labels:
+    app: sdk  
+spec:
+  ports:
+  - port: ${sdk_port}
+    protocol: TCP
+    targetPort: ${sdk_port}
+  selector:
+    app: sdk
+  type: LoadBalancer

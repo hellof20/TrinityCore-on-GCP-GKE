@@ -1,66 +1,10 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: "stable.example.com/v1"
+kind: SDK
 metadata:
-  creationTimestamp: null
-  labels:
-    app: sdk
-  name: sdk
+  name: pwm-sdk
+  finalizers:
+  - stable.example.com/finalizer  
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: sdk
-  strategy: {}
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: sdk
-    spec:
-      containers:
-      - image: hellof20/wow-sdk:v1
-        name: trinitycore-regisiter
-        command: ["python","sdk.py"]
-        ports:
-        - containerPort: 80
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: "100m"
-          limits:
-            memory: "100Mi"
-            cpu: "100m"
-        env:
-          - name: host
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config
-                key: host
-          - name: user
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config
-                key: user
-          - name: password
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config
-                key: password            
----
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  labels:
-    app: sdk
-  name: sdk
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: sdk
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  port: 80
+  image: hellof20/wow-sdk:v1
+  replicas: 2

@@ -1,7 +1,7 @@
 apiVersion: "stable.example.com/v1"
 kind: Realm
 metadata:
-  name: realm-server
+  name: pwm-realm-2-server
   finalizers:
   - stable.example.com/finalizer  
 spec:

@@ -1,0 +1,18 @@
+apiVersion: "stable.example.com/v1"
+kind: WOW
+metadata:
+  name: pwm-wow
+  finalizers:
+  - stable.example.com/finalizer  
+spec:
+  sdk_port: 80
+  sdk_image: hellof20/wow-sdk:v1
+  sdk_replicas: 2
+  auth_image: hellof20/auth
+  auth_replicas: 2
+  realm_id: 3
+  realm_image: hellof20/realm
+  realm_name: 麦迪文
+  create_mysql: "yes"
+  mysql_user: root
+  mysql_password: password
