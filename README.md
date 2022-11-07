@@ -35,75 +35,31 @@ gcloud container clusters create wow \
 kubectl get nodes
 ```
 
-## Prepare MySQL for WoW
-- create wow namespace
-```
-kubectl create namespace wow
-```
 
-- create MySQL（Optional）
-
-If you already have MySQL, you can skip this step. 
+## Deploy WoW CRD include wow,sdk,auth,realm
 ```
-kubectl -n wow apply -f mysql/mysql.yaml
+kubectl apply -f wow-operator/crd/
 ```
-- create K8S configmap from your MySQL parameters
-```
-kubectl -n wow create configmap mysql-config --from-literal=host="mysql" --from-literal=user="root" --from-literal=password="password"
-```
-Notice: if you don't create mysql use previous step, then you need to replace values of host, user and password.
-
 
 ## Deploy WoW operator
-- create operator rbac and pod
 ```
-kubectl -n wow apply -f wow-operator/wow-operator.yaml
-```
-
-## Deploy WoW CRD
-- create auth server CRD
-```
-kubectl apply -f wow/crd/auth-crd.yaml
-```
-- create world server CRD
-```
-kubectl apply -f wow/crd/realm-crd.yaml
-```
-- create sdk CRD
-```
-kubectl apply -f wow/crd/sdk-crd.yaml
+kubectl apply -f wow-operator/wow-operator.yaml
 ```
 
-## Deploy backend service
-- deploy sdk server
-
-sdk server is used to register user account.
+## Deploy WoW
+- deploy your WoW
 ```
-kubectl apply -f wow/sdk.yaml
-```
-- deploy realm server
-```
-kubectl apply -f wow/realm.yaml
-```
-- deploy auth server
-```
-kubectl apply -f wow/auth.yaml
+kubectl apply -f wow/wow.yaml
 ```
 
-- check auth server and realm status are health
-
-![image](https://user-images.githubusercontent.com/8756642/199422297-1fe98623-bc53-4269-8c5d-e75352e6a76c.png)
-
-
-At begining, you will see auth and realm status is 'creating', wait some minutes until auth and realm status are 'ok'.
+- At begining, you will see wow status is 'creating', wait some minutes until wow status are 'ok'.
 ```
-kubectl get auth
-kubectl get realm
+kubectl get wow
 ```
 
 - get sdk server external ip address
 ```
-kubectl get svc -l "app=sdk"
+kubectl get sdk
 ```
 EXTERNAL-IP column is the sdk external ip address.
 
