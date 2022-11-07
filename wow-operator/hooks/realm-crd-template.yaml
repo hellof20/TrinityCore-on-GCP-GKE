@@ -1,0 +1,10 @@
+apiVersion: "stable.example.com/v1"
+kind: Realm
+metadata:
+  name: ${kind_name}-realm-${realm_id}-server
+  finalizers:
+  - stable.example.com/finalizer
+spec:
+  id: ${realm_id}
+  image: ${realm_image}
+  name: ${realm_name}

@@ -58,18 +58,18 @@ spec:
     subresources:
       status: {}
     additionalPrinterColumns:
-    - name: SDK_PORT
-      type: integer
-      jsonPath: .spec.sdk_port
+    # - name: SDK_PORT
+    #   type: integer
+    #   jsonPath: .spec.sdk_port
     - name: Age
       type: date
       jsonPath: .metadata.creationTimestamp
     - name: Ready
       type: string
       jsonPath: .status.ready
-    - name: SDK_EXTERNAL_IP
-      type: string
-      jsonPath: .status.sdk_external_ip
-    - name: AUTH_EXTERNAL_IP
-      type: string
-      jsonPath: .status.auth_external_ip          
+    # - name: SDK_EXTERNAL_IP
+    #   type: string
+    #   jsonPath: .status.sdk_external_ip
+    # - name: AUTH_EXTERNAL_IP
+    #   type: string
+    #   jsonPath: .status.auth_external_ip          

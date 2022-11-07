@@ -34,7 +34,7 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/authserver.conf
-          subPath: auth.conf
+          subPath: ${namespace}-auth.conf
           readOnly: true
       volumes:
       - name: config

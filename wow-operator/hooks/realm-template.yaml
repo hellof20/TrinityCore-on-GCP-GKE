@@ -35,7 +35,7 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/worldserver.conf
-          subPath: realm-${realm_id}.conf
+          subPath: ${namespace}-realm-${realm_id}.conf
           readOnly: true
       volumes:
       - name: config

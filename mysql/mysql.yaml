@@ -1,3 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mysql-config
+data:
+  confluence.cnf: |-
+    [mysqld]
+    bind-address     = 0.0.0.0
+    character-set-server=utf8
+    collation-server=utf8_bin
+    default-storage-engine=INNODB
+    max_allowed_packet=256M
+    innodb_log_file_size=2GB
+    transaction-isolation=READ-COMMITTED
+
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,7 +23,7 @@ spec:
   - port: 3306
   selector:
     app: mysql
-  clusterIP: None
+  type: LoadBalancer
   
 ---
 apiVersion: apps/v1
@@ -38,6 +54,11 @@ spec:
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
+        - name: config-volume
+          mountPath: /etc/mysql/conf.d          
       volumes:
       - name: mysql-storage
         emptyDir: {}
+      - name: config-volume
+        configMap:
+          name: mysql-config

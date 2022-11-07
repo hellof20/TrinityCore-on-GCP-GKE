@@ -1,10 +1,9 @@
 apiVersion: "stable.example.com/v1"
-kind: Realm
+kind: Auth
 metadata:
-  name: realm-4-server
+  name: ${kind_name}-auth-server
   finalizers:
   - stable.example.com/finalizer  
 spec:
-  id: 4
-  image: hellof20/realm
-  name: 巨龙之吼
+  image: ${auth_image}
+  replicas: ${auth_replicas}
