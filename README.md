@@ -44,6 +44,11 @@ kubectl apply -f wow-operator/crd/
 ```
 kubectl apply -f wow-operator/wow-operator.yaml
 ```
+Wait for the wow-operator pod to be running
+```
+kubectl -n wow-operator get po
+```
+
 
 ## Deploy WoW
 - deploy your WoW
