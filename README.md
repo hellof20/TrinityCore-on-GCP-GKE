@@ -35,8 +35,7 @@ gcloud container clusters create wow \
 kubectl get nodes
 ```
 
-
-## Deploy WoW CRD include wow,sdk,auth,realm
+## Deploy CRD include wow,sdk,auth,realm
 ```
 kubectl apply -f wow-operator/crd/
 ```
@@ -45,6 +44,11 @@ kubectl apply -f wow-operator/crd/
 ```
 kubectl apply -f wow-operator/wow-operator.yaml
 ```
+Wait for the wow-operator pod to be running
+```
+kubectl -n wow-operator get po
+```
+
 
 ## Deploy WoW
 - deploy your WoW
