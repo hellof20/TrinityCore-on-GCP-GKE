@@ -44,6 +44,11 @@ spec:
       containers:
       - image: mysql:5.7
         name: mysql
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 5
+          periodSeconds: 5
         env:
           # 在实际中使用 secret
         - name: MYSQL_ROOT_PASSWORD

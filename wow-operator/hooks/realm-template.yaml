@@ -25,6 +25,11 @@ spec:
         command: ["worldserver"]
         ports:
         - containerPort: 8085
+        readinessProbe:
+          tcpSocket:
+            port: 8085
+          initialDelaySeconds: 5
+          periodSeconds: 5        
         resources:
           requests:
             memory: "2048Mi"

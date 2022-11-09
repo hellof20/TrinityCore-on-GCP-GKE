@@ -14,7 +14,7 @@ wowAdd(){
       sleep 10;
       waitTime=$(expr ${waitTime} + 10)
       echo "waited ${waitTime} secconds for mysql to be ready ..."
-      if [ ${waitTime} -gt 300 ]; then
+      if [ ${waitTime} -gt 500 ]; then
         echo "wait too long, failed."
         # update wow status to failed
         curl -X PATCH --cacert ${CACERT} -H "Content-Type: application/merge-patch+json" --header "Authorization: Bearer ${TOKEN}" -d "{\"status\":{\"ready\":\"failed\"}}" ${APISERVER}/apis/stable.example.com/v1/namespaces/${namespace}/wows/${kind_name}/status
@@ -31,7 +31,7 @@ wowAdd(){
   envsubst < realm-crd-template.yaml  > ${namespace}-realm-${realm_id}-crd.yaml
   # create realm crd resource
   kubectl -n ${namespace} apply -f ${namespace}-realm-${realm_id}-crd.yaml
-
+  
   # generate auth crd resource yaml
   envsubst < auth-crd-template.yaml  > ${namespace}-auth-crd.yaml
   # create auth crd resource
@@ -72,7 +72,7 @@ wowDelete(){
   kubectl -n ${namespace} delete -f ${namespace}-realm-${realm_id}-crd.yaml
   if [[ ${create_mysql} == "yes" ]]; then
     kubectl -n ${namespace} delete -f ${namespace}-mysql.yaml
-  fi  
+  fi
   kubectl -n ${namespace} patch wow/${kind_name} --type json --patch='[ { "op": "remove", "path": "/metadata/finalizers" } ]'
 }
 
@@ -84,7 +84,7 @@ sdkAdd(){
   kubectl -n ${namespace} apply -f ${namespace}-sdk.yaml
   # wait unitl sdk pod is running and svc get external ip
   waitTime=0
-  ready="ok"  
+  ready="ok"
   until [ $(kubectl -n ${namespace} get deployment/sdk -o json | jq '.status.availableReplicas') -ge 1 ] && [ $(kubectl -n ${namespace} get svc sdk -o jsonpath='{.status.loadBalancer.ingress[0].ip}') ]; do
     sleep 10;
     waitTime=$(expr ${waitTime} + 10)
@@ -123,7 +123,7 @@ authAdd(){
   export mysql_user=$(kubectl -n ${namespace} get configmap mysql-config -o jsonpath='{.data.user}')
   export mysql_password=$(kubectl -n ${namespace} get configmap mysql-config -o jsonpath='{.data.password}')  
   # create auth database
-  mysql --host=${mysql_host} --user=${mysql_user} --password=${mysql_password} --execute="CREATE DATABASE IF NOT EXISTS auth DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+  # mysql --host=${mysql_host} --user=${mysql_user} --password=${mysql_password} --execute="CREATE DATABASE IF NOT EXISTS auth DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
   # generate auth conf
   envsubst < auth-template.conf  > ${namespace}-auth.conf
   # generate auth yaml

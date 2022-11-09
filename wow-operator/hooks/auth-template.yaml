@@ -22,6 +22,11 @@ spec:
         imagePullPolicy: IfNotPresent
         name: auth
         command: ["authserver"]
+        readinessProbe:
+          tcpSocket:
+            port: 3724
+          initialDelaySeconds: 5
+          periodSeconds: 5         
         ports:
         - containerPort: 3724
         resources:

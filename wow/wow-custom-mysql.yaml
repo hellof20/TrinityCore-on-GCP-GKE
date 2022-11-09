@@ -9,9 +9,10 @@ spec:
   sdk_image: hellof20/wow-sdk:v1
   sdk_replicas: 1
   auth_image: hellof20/auth
-  realm_id: 13
+  realm_id: 3
   realm_image: hellof20/realm
-  realm_name: 巨龙之吼
-  create_mysql: "yes"
-  mysql_user: root
-  mysql_password: password
+  realm_name: 麦迪文
+  create_mysql: "no"
+  mysql_host: your_mysql_ip_address
+  mysql_user: your_mysql_user
+  mysql_password: your_mysql_password

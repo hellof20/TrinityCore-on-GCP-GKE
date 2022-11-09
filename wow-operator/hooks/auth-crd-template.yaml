@@ -6,4 +6,3 @@ metadata:
   - stable.example.com/finalizer  
 spec:
   image: ${auth_image}
-  replicas: ${auth_replicas}

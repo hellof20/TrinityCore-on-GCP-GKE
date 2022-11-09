@@ -22,12 +22,8 @@ spec:
           spec:
             type: object
             properties:
-              port:
-                type: integer
               image:
-                type: string
-              replicas:
-                type: integer                
+                type: string             
           status:
             type: object
             properties:
@@ -36,18 +32,8 @@ spec:
               external_ip:
                 type: string
     subresources:
-      status: {}
-      scale:
-        specReplicasPath: .spec.replicas
-        statusReplicasPath: .status.replicas
-        labelSelectorPath: .status.labelSelector                
+      status: {}              
     additionalPrinterColumns:
-    - name: PORT
-      type: integer
-      jsonPath: .spec.port
-    - name: REPLICAS
-      type: integer
-      jsonPath: .spec.replicas
     - name: Age
       type: date
       jsonPath: .metadata.creationTimestamp
