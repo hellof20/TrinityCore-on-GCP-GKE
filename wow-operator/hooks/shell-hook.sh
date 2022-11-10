@@ -212,6 +212,7 @@ realmAdd(){
     # get realm public ip
     publicip=$(kubectl -n ${namespace} get svc realm-${realm_id} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
     # add realm info to auth.realmlist table
+    mysql --host=${mysql_host} --user=${mysql_user} --password=${mysql_password} --execute="delete from auth.realmlist where id = 1;"
     mysql --host=${mysql_host} --user=${mysql_user} --password=${mysql_password} --execute="insert into auth.realmlist(id,name,address) values(${realm_id},'${realm_name}','${publicip}');"
     #restart realm
     kubectl -n ${namespace} delete po -l app=realm-${realm_id}
