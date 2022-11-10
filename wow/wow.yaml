@@ -11,7 +11,7 @@ spec:
   auth_image: hellof20/auth
   realm_id: 13
   realm_image: hellof20/realm
-  realm_name: 巨龙之吼
+  realm_name: 英灵殿
   create_mysql: "yes"
   mysql_user: root
   mysql_password: password

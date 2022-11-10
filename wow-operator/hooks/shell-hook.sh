@@ -27,15 +27,15 @@ wowAdd(){
   # create mysql config for sdk\auth\realm
   kubectl -n ${namespace} create configmap mysql-config --from-literal=host=${mysql_host} --from-literal=user=${mysql_user} --from-literal=password=${mysql_password}
 
-  # generate realm crd resource yaml
-  envsubst < realm-crd-template.yaml  > ${namespace}-realm-${realm_id}-crd.yaml
-  # create realm crd resource
-  kubectl -n ${namespace} apply -f ${namespace}-realm-${realm_id}-crd.yaml
-  
   # generate auth crd resource yaml
   envsubst < auth-crd-template.yaml  > ${namespace}-auth-crd.yaml
   # create auth crd resource
   kubectl -n ${namespace} apply -f ${namespace}-auth-crd.yaml
+
+  # generate realm crd resource yaml
+  envsubst < realm-crd-template.yaml  > ${namespace}-realm-${realm_id}-crd.yaml
+  # create realm crd resource
+  kubectl -n ${namespace} apply -f ${namespace}-realm-${realm_id}-crd.yaml  
 
   # generate sdk crd resource yaml
   envsubst < sdk-crd-template.yaml  > ${namespace}-sdk-crd.yaml
@@ -59,6 +59,7 @@ wowAdd(){
     # update wow status
     curl -X PATCH --cacert ${CACERT} -H "Content-Type: application/merge-patch+json" --header "Authorization: Bearer ${TOKEN}" -d "{\"status\":{\"ready\":\"ok\"}}" ${APISERVER}/apis/stable.example.com/v1/namespaces/${namespace}/wows/${kind_name}/status
   else
+    curl -X PATCH --cacert ${CACERT} -H "Content-Type: application/merge-patch+json" --header "Authorization: Bearer ${TOKEN}" -d "{\"status\":{\"ready\":\"failed\"}}" ${APISERVER}/apis/stable.example.com/v1/namespaces/${namespace}/wows/${kind_name}/status
     return 1
   fi
   echo "====================================="  
@@ -199,7 +200,7 @@ realmAdd(){
   until [ $(kubectl -n ${namespace} get deployment/realm-${realm_id} -o json | jq '.status.availableReplicas') == "1" ] && [ $(kubectl -n ${namespace} get svc realm-${realm_id} -o jsonpath='{.status.loadBalancer.ingress[0].ip}') ]; do
     sleep 10;
     waitTime=$(expr ${waitTime} + 10)
-    echo "waited ${waitTime} secconds for realm server to running ..."
+    echo "create realm server,waited ${waitTime} secconds for realm server to running ..."
     if [ ${waitTime} -gt 300 ]; then
       ready="failed"
       echo "wait too long, failed."
@@ -212,6 +213,8 @@ realmAdd(){
     publicip=$(kubectl -n ${namespace} get svc realm-${realm_id} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
     # add realm info to auth.realmlist table
     mysql --host=${mysql_host} --user=${mysql_user} --password=${mysql_password} --execute="insert into auth.realmlist(id,name,address) values(${realm_id},'${realm_name}','${publicip}');"
+    #restart realm
+    kubectl -n ${namespace} delete po -l app=realm-${realm_id}
     # update realms external ip
     curl -X PATCH --cacert ${CACERT} -H "Content-Type: application/merge-patch+json" --header "Authorization: Bearer ${TOKEN}" -d "{\"status\":{\"external_ip\":\"${publicip}\"}}" ${APISERVER}/apis/stable.example.com/v1/namespaces/${namespace}/realms/${kind_name}/status    
     # update realm status to ok
@@ -309,7 +312,6 @@ else
       fi
     elif [[ $resourceEvent == "Modified" ]]; then
       delete_flag=$(jq -r '.[0].object.metadata.deletionTimestamp' ${BINDING_CONTEXT_PATH})
-      echo "Trigger WOW Delete"
       echo ${delete_flag}
       if [ ${#delete_flag} -gt 10 ]; then
         wowDelete
