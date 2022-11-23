@@ -14,3 +14,23 @@ kubectl apply -f wow-operator/crd/
 kubectl apply -f wow-operator/wow-operator.yaml
 sleep 60
 kubectl apply -f wow/wow.yaml
+
+waitTime=0
+ready="ok"
+until [[ $(k get wow -o jsonpath='{.items[].status.ready}') == 'ok' ]]; do
+sleep 10;
+waitTime=$(expr ${waitTime} + 10)
+echo "waited ${waitTime} secconds for sdk to be ready ..."
+if [ ${waitTime} -gt 300 ]; then
+    ready="failed"
+    echo "wait too long, failed."
+    return 1
+fi
+done
+
+if [[ ${ready} == "ok" ]];then
+    kubectl get sdk
+    kubectl get auth
+else
+    echo "deploy wow failed."    
+fi
