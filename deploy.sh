@@ -12,12 +12,16 @@ gcloud container clusters create $name \
 
 kubectl apply -f wow-operator/crd/
 kubectl apply -f wow-operator/wow-operator.yaml
-sleep 60
+
+until [[ $(kubectl -n wow-operator get po -o jsonpath='{.items[].status.phase}') == 'Running' ]]; do
+    sleep 10
+done
+
 kubectl apply -f wow/wow.yaml
 
 waitTime=0
 ready="ok"
-until [[ $(k get wow -o jsonpath='{.items[].status.ready}') == 'ok' ]]; do
+until [[ $(kubectl get wow -o jsonpath='{.items[].status.ready}') == 'ok' ]]; do
 sleep 10;
 waitTime=$(expr ${waitTime} + 10)
 echo "waited ${waitTime} secconds for sdk to be ready ..."
