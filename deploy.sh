@@ -28,13 +28,13 @@ echo "waited ${waitTime} secconds for sdk to be ready ..."
 if [ ${waitTime} -gt 300 ]; then
     ready="failed"
     echo "wait too long, failed."
-    return 1
 fi
 done
 
 if [[ ${ready} == "ok" ]];then
     kubectl get sdk
     kubectl get auth
+    echo "deploy wow success."    
 else
     echo "deploy wow failed."    
 fi
