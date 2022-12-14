@@ -12,7 +12,13 @@ gcloud container clusters create $name \
     --project=$project_id
 echo "GKE cluster done."
 
-echo "deploying WoW ..."
+echo "Get GKE credential"
+gcloud container clusters get-credentials $name \
+    --zone $zone \
+    --project=$project_id \
+    --quiet
+
+echo "Deploying WoW ..."
 kubectl apply -f wow-operator/crd/
 kubectl apply -f wow-operator/wow-operator.yaml
 
