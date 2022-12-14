@@ -24,6 +24,7 @@ kubectl apply -f wow-operator/wow-operator.yaml
 
 until [[ $(kubectl -n wow-operator get po -o jsonpath='{.items[].status.phase}') == 'Running' ]]; do
     sleep 10
+    echo "waiting wow-operator be ready ..."
 done
 
 kubectl apply -f wow/wow.yaml
