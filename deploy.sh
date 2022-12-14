@@ -1,6 +1,8 @@
 #!/bin/bash
 
 echo "begin to deploy GKE using gcloud ..."
+
+echo "creating GKE cluster ..."
 gcloud container clusters create $name \
     --cluster-version=1.23 \
     --no-enable-autoupgrade \
@@ -8,8 +10,9 @@ gcloud container clusters create $name \
     --num-nodes=1 \
     --zone $zone \
     --project=$project_id
+echo "GKE cluster done."
 
-
+echo "deploying WoW ..."
 kubectl apply -f wow-operator/crd/
 kubectl apply -f wow-operator/wow-operator.yaml
 
