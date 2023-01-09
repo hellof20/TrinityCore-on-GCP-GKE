@@ -1,12 +1,12 @@
-# WoW-on-gke
+# TrinityCore-on-GCP-GKE
 
-**WoW-on-gke** help you to deploy World of Warcraft 3.3.5 backend service to Google Cloud GKE. To simplify deployment complexity, the wow operator is used to complete the auth server and world server deployment.
+**TrinityCore-on-GCP-GKE** help you to deploy open source MMORPG framework(TrinityCore) backend service to Google Cloud GKE. To simplify deployment complexity, the kubernetes operator is used to complete the auth server and world server deployment.
 
-World of Warcraft 3.3.5 backend service base on [TrinityCore](https://github.com/TrinityCore/TrinityCore).
+Open source MMORPG framework backend service base on [TrinityCore](https://github.com/TrinityCore/TrinityCore).
 
 TrinityCore container image from [here](https://gitlab.com/nicolaw/trinitycore/-/tree/master).
 
-The k8s operator develop framework is [shell-operator](https://github.com/flant/shell-operator).
+The Kubernetes operator develop framework is [shell-operator](https://github.com/flant/shell-operator).
 
 In order to register an account more conveniently, I developed [a simple program](https://github.com/hellof20/TrinityCoreRegisiter) that can be registered just through the UI. 
 
