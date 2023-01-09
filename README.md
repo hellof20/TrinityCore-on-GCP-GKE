@@ -40,7 +40,7 @@ kubectl get nodes
 kubectl apply -f wow-operator/crd/
 ```
 
-## Deploy WoW operator
+## Deploy the operator
 ```
 kubectl apply -f wow-operator/wow-operator.yaml
 ```
@@ -89,7 +89,7 @@ EXTERNAL-IP column is the auth server external ip address.
 ![image](https://user-images.githubusercontent.com/8756642/199389288-60ba584d-2051-4ddf-b572-5abc2e7e0b1a.png)
 
 
-## Play your World of Warcraft
+## Play the game
 ![image](https://user-images.githubusercontent.com/8756642/199390094-b5512728-87a8-4e85-89cc-90c5d6b36f4a.png)
 
 
