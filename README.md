@@ -29,7 +29,7 @@ In order to register an account more conveniently, I developed [a simple program
 if you already have a gke cluster, you can skip this step.
 - create your GKE Cluster
 ```
-gcloud container clusters create wow \
+gcloud container clusters create mygameclsuter \
     --cluster-version=1.23 \
     --no-enable-autoupgrade \
     --machine-type=e2-standard-4 \
