@@ -37,23 +37,23 @@ kubectl get nodes
 
 ## Deploy CRD include wow,sdk,auth,realm
 ```
-kubectl apply -f wow-operator/crd/
+kubectl apply -f game-operator/crd/
 ```
 
 ## Deploy the operator
 ```
-kubectl apply -f wow-operator/wow-operator.yaml
+kubectl apply -f game-operator/game-operator.yaml
 ```
-Wait for the wow-operator pod to be running
+Wait for the game-operator pod to be running
 ```
-kubectl -n wow-operator get po
+kubectl -n game-operator get po
 ```
 
 
-## Deploy WoW
-- deploy your WoW
+## Deploy Guide
+- deploy the game
 ```
-kubectl apply -f wow/wow.yaml
+kubectl apply -f game/game.yaml
 ```
 
 - At begining, you will see wow status is 'creating', wait some minutes until wow status are 'ok'.
@@ -94,7 +94,7 @@ EXTERNAL-IP column is the auth server external ip address.
 
 
 ## Add a new realm server
-- copy wow/realm.yaml to a new file
+- copy game/realm.yaml to a new yaml file
 - modiy metadata.name, id, name. The id cannot be the same as the existing id
 - deploy a new realm server with kubectl
 ```
