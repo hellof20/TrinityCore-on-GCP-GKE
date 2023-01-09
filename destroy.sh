@@ -8,7 +8,7 @@ gcloud container clusters get-credentials $name \
     --project=$project_id \
     --quiet
 
-echo "deleting Wow ..."
+echo "deleting the game ..."
 kubectl delete -f wow/wow.yaml
 
 echo "deleting GKE cluster"

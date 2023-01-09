@@ -18,16 +18,16 @@ gcloud container clusters get-credentials $name \
     --project=$project_id \
     --quiet
 
-echo "Deploying WoW ..."
-kubectl apply -f wow-operator/crd/
-kubectl apply -f wow-operator/wow-operator.yaml
+echo "Deploying the game ..."
+kubectl apply -f game-operator/crd/
+kubectl apply -f game-operator/game-operator.yaml
 
-until [[ $(kubectl -n wow-operator get po -o jsonpath='{.items[].status.phase}') == 'Running' ]]; do
+until [[ $(kubectl -n game-operator get po -o jsonpath='{.items[].status.phase}') == 'Running' ]]; do
     sleep 10
-    echo "waiting wow-operator be ready ..."
+    echo "waiting game-operator be ready ..."
 done
 
-kubectl apply -f wow/wow.yaml
+kubectl apply -f game/game.yaml
 
 waitTime=0
 ready="ok"
@@ -44,7 +44,7 @@ done
 if [[ ${ready} == "ok" ]];then
     kubectl get sdk
     kubectl get auth
-    echo "deploy wow success."    
+    echo "game deploy success."    
 else
-    echo "deploy wow failed."    
+    echo "game deploy failed."    
 fi
