@@ -10,6 +10,12 @@ The Kubernetes operator develop framework is [shell-operator](https://github.com
 
 In order to register an account more conveniently, I developed [a simple program](https://github.com/hellof20/TrinityCoreRegisiter) that can be registered just through the UI. 
 
+# Architeure
+
+<img width="819" alt="image" src="https://user-images.githubusercontent.com/8756642/211265827-a4f2674f-f66d-4c11-a400-496e363a1fda.png">
+
+
+
 ## Before you begin
 - You have two options to run World of Warcraft game client.
   1. PC computer with Windows OS.
