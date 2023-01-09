@@ -73,7 +73,7 @@ kubectl get auth
 ```
 EXTERNAL-IP column is the auth server external ip address.
 
-## Register user account and Download World of Warcraft game client.
+## Register user account and Download game client.
 - open http://sdk_server_ip_address in your browser
 - input your username and password
 
@@ -90,7 +90,6 @@ EXTERNAL-IP column is the auth server external ip address.
 
 
 ## Play the game
-![image](https://user-images.githubusercontent.com/8756642/199390094-b5512728-87a8-4e85-89cc-90c5d6b36f4a.png)
 
 
 ## Add a new realm server
