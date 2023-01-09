@@ -8,7 +8,7 @@ TrinityCore container image from [here](https://gitlab.com/nicolaw/trinitycore/-
 
 The Kubernetes operator develop framework is [shell-operator](https://github.com/flant/shell-operator).
 
-In order to register an account more conveniently, I developed [a simple program](https://github.com/hellof20/TrinityCoreRegisiter) that can be registered just through the UI. 
+In order to register an account more conveniently, I developed [a simple program](https://github.com/hellof20/TrinityCoreRegisiter) that can be registered through the web UI. 
 
 # Architeure
 
